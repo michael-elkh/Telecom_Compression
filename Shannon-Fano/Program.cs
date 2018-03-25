@@ -5,7 +5,6 @@ using System.IO;
 
 namespace ShannonFano
 {
-
 	class Program
 	{
 		/// <summary>
