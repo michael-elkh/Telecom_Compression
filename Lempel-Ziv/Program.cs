@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Lempel_Ziv
 {
 	class Program
 	{
+		const String FILE = "C:\\Users\\micha\\Desktop\\big.txt.lzw";
 		static Byte[] Get_Bytes_From_String(String input)
 		{
 			Byte[] Table = new Byte[input.Length];
@@ -17,38 +17,81 @@ namespace Lempel_Ziv
 			}
 			return Table;
 		}
-		static List<Int32> LZW_Compress(String input)
+		static KeyValuePair<int,List<Int32>> LZW_Compress(String input)
 		{
 			//https://www.geeksforgeeks.org/lzw-lempel-ziv-welch-compression-technique/
 			List<int> output = new List<int>();
+			FileStream file = new FileStream(FILE,FileMode.Open, FileAccess.Read);
 			Dictionary<String, Int32> Table = new Dictionary<string, int>();
 			for (int i = 0; i < 256; i++)
 			{
 				Table.Add(((Char)i).ToString(), i);
 			}
 
-			string p = input[0].ToString();
-			Char c;
+			string previous = ((Char)file.ReadByte()).ToString();
+			Char current;
 			string concat;
-			int cmpt = 256;
-			for (int i = 1; i < input.Length; i++)
+			int cmpt = 255;
+			for (int i = 1; i < file.Length; i++)
 			{
-				c = input[i];
-				concat = p + c.ToString();
+				current = (Char)file.ReadByte();
+				concat = previous + current.ToString();
 				if (Table.ContainsKey(concat))
 				{
-					p = concat;
+					previous = concat;
 				}else
 				{
-					output.Add(Table[p]);
-					Table.Add(concat, cmpt);
+					output.Add(Table[previous]);
 					cmpt++;
-					p = c.ToString();
+					Table.Add(concat, cmpt);
+					previous = current.ToString();
 				}
 			}
-			output.Add(Table[p]);
+			output.Add(Table[previous]);
+			KeyValuePair<int, List<Int32>> res;
+			res = new KeyValuePair<int, List<int>>((int)Math.Floor(Math.Log(output.Max(), 2)) + 1, output);
+			file.Close();
+			return res;
+		}
+		static List<Boolean> Get_List(int Value, int Nb_Byte = 8)
+		{
+			List<Boolean> result = new List<Boolean>(new Boolean[Nb_Byte]);
 
-			return output;
+			//Récupération de la valeur bit par bit, via décalage.
+			for (int i = Nb_Byte - 1; i >= 0; i--)
+			{
+				result[i] = (Value % 2 == 1);
+				Value >>= 1; //Décalage d'un bit vers la gauche.
+			}
+			return result;
+		}
+		static Byte Get_Byte(List<Boolean> Boolean_List)
+		{
+			Byte result = 0;
+			Int32 i = Boolean_List.Count - 1;
+			foreach (Boolean item in Boolean_List)
+			{
+				//Somme les puissances de 2.
+				result += (Byte)(item ? (Math.Pow(2, i)) : 0);
+				i--;
+			}
+
+			return result;
+		}
+		static void Write(KeyValuePair<int, List<int>> input)
+		{
+			FileStream file = new FileStream(FILE+".lzw",FileMode.OpenOrCreate,FileAccess.Write);
+			List<Boolean> buffer = new List<bool>();
+			foreach (int element in input.Value)
+			{
+				buffer.AddRange(Get_List(element, input.Key));
+				while(buffer.Count >= 8)
+				{
+					file.WriteByte(Get_Byte(buffer.GetRange(0,8)));
+					buffer.RemoveRange(0, 8);
+				}
+			}
+			file.Close();
 		}
 		static string LZW_Uncompress(List<Int32> input)
 		{
@@ -88,8 +131,16 @@ namespace Lempel_Ziv
 		}
 		static void Main(string[] args)
 		{
-			LZW_Compress("BABAABAAA");
-			Console.WriteLine(	LZW_Uncompress(LZW_Compress("BABAABAAA")));
+			FileStream f = new FileStream(FILE + ".test", FileMode.OpenOrCreate, FileAccess.Write);
+			for (int i = 0; i < 256; i++)
+			{
+				f.WriteByte((Byte)i);
+			}
+			f.Close();
+			KeyValuePair<int, List<int>> compressed = LZW_Compress("BABAABAAA");
+			GC.Collect();
+			Write(compressed);
+			//Console.WriteLine(LZW_Uncompress(LZW_Compress("BABAABAAA").Value));
 		}
 	}
 }
