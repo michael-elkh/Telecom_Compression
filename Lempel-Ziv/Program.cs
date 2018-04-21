@@ -8,7 +8,7 @@ namespace Lempel_Ziv
 {
 	class Program
 	{
-		const String FILE = "C:\\Users\\micha\\Desktop\\big.txt";
+		const String FILE = "C:\\Users\\micha\\Desktop\\Test_Files\\TheSonnets.txt";
 		static Byte[] Get_Bytes_From_String(String input)
 		{
 			Byte[] Table = new Byte[input.Length];
@@ -174,32 +174,6 @@ namespace Lempel_Ziv
 			}
 
 			output.Write(Encoding.ASCII.GetBytes(buffer.ToCharArray(), 0, buffer.Length), 0, buffer.Length);
-		}
-		static void Cut_File(string File, int block_size)
-		{
-			FileStream file = new FileStream(File, FileMode.Open, FileAccess.Read);
-			int max = (int)file.Length;
-			int pos = 0;
-			int i = 0;
-			while(pos < max)
-			{
-				FileStream current = new FileStream(File+i.ToString()+".temp", FileMode.OpenOrCreate, FileAccess.Write);
-				int size = (max - pos) > block_size ? block_size : (max - pos);
-				byte[] buffer = new byte[size];
-				file.Read(buffer, 0, size);
-				current.Write(buffer, 0, size);
-				current.Close();
-				pos += size;
-				i++;
-			}
-			file.Close();
-			for (int j = 0; j < i; j++)
-			{
-				KeyValuePair<int, List<int>> compressed = LZW_Compress(File + j.ToString() + ".temp");
-				GC.Collect();
-				Write(File + j.ToString() + ".temp", compressed);
-			}
-			
 		}
 		static void Main(string[] args)
 		{
