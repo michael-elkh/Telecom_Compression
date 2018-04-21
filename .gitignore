@@ -1,5 +1,5 @@
-Shannon-Fano/bin/*
-Shannon-Fano/obj/*
-.vs/*
-Lempel-Ziv/bin/*
-Lempel-Ziv/obj/*
+Shannon-Fano/bin/
+Shannon-Fano/obj/
+.vs/
+Lempel-Ziv/bin/
+Lempel-Ziv/obj/

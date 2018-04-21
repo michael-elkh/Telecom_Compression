@@ -1,7 +1,0 @@
-C:\Users\micha\Desktop\Test_File\Test_File\bin\Release\Test_File.exe.config
-C:\Users\micha\Desktop\Test_File\Test_File\bin\Release\Test_File.exe
-C:\Users\micha\Desktop\Test_File\Test_File\bin\Release\Test_File.pdb
-C:\Users\micha\Desktop\Test_File\Test_File\obj\Release\Test_File.csprojResolveAssemblyReference.cache
-C:\Users\micha\Desktop\Test_File\Test_File\obj\Release\Test_File.csproj.CoreCompileInputs.cache
-C:\Users\micha\Desktop\Test_File\Test_File\obj\Release\Test_File.exe
-C:\Users\micha\Desktop\Test_File\Test_File\obj\Release\Test_File.pdb

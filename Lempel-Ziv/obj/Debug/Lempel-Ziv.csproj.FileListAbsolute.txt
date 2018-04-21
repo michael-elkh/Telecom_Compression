@@ -1,7 +1,0 @@
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\bin\Debug\Lempel-Ziv.exe.config
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\bin\Debug\Lempel-Ziv.exe
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\bin\Debug\Lempel-Ziv.pdb
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\obj\Debug\Lempel-Ziv.csprojResolveAssemblyReference.cache
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\obj\Debug\Lempel-Ziv.csproj.CoreCompileInputs.cache
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\obj\Debug\Lempel-Ziv.exe
-C:\Users\micha\Desktop\Telecom_Compression\Lempel-Ziv\obj\Debug\Lempel-Ziv.pdb
