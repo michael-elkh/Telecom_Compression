@@ -163,20 +163,26 @@ namespace Lempel_Ziv
             //https://www.geeksforgeeks.org/lzw-lempel-ziv-welch-compression-technique/
             List<int> output = new List<int>();
             Byte[] input = File.ReadAllBytes(Path);
+            Byte[] convBuff = new Byte[1];
             Dictionary<String, Int32> Table = new Dictionary<string, int>();
             //Rempli le dictionnaire LZW par les premiers 256 octets
             for (int i = 1; i <= 256; i++)
             {
-                Table.Add(((Char)(i - 1)).ToString(), i);
+                //Ces deux lignes de code permettent de traiter n'importe quel type de données, en évitant des problèmes d'encodage.
+                convBuff[0] = (Byte)(i-1);
+                Table.Add(Encoding.GetEncoding(1252).GetString(convBuff), i);
             }
 
-            string previous = ((Char)input[0]).ToString();
+            convBuff[0] = (Byte)input[0];
+            String previous = Encoding.GetEncoding(1252).GetString(convBuff);
             Char current;
             string concat;
             int cmpt = 256;//Index courant dans la table
             for (int i = 1; i < input.Length; i++)
             {
-                current = (Char)input[i];//Récupère le premier caractère
+                //Ces deux lignes de code permettent de traiter n'importe quel type de données, en évitant des problèmes d'encodage.
+                convBuff[0] = (Byte)input[i];
+                current = Encoding.GetEncoding(1252).GetChars(convBuff)[0]; //Récupère le premier caractère
                 concat = previous + current.ToString();//Concatène avec le chaîne précédente
                 if (Table.ContainsKey(concat))//Si la concaténation existe 
                 {
@@ -202,10 +208,13 @@ namespace Lempel_Ziv
         {
             List<Char> output = new List<Char>();
             Dictionary<Int32, String> Table = new Dictionary<int, String>();
+            Byte[] convBuff = new Byte[1];
             int cmpt = 1;//Index courant dans la table
             for (; cmpt <= 256; cmpt++) //Rempli le dictionnaire LZW par les premiers 256 octets
             {
-                Table.Add(cmpt, ((Char)(cmpt - 1)).ToString());
+                //Ces deux lignes de code permettent de traiter n'importe quel type de données, en évitant des problèmes d'encodage.
+                convBuff[0] = (Byte)(cmpt - 1);
+                Table.Add(cmpt, Encoding.GetEncoding(1252).GetString(convBuff));
             }
 
             int prevIndex = input.First();
