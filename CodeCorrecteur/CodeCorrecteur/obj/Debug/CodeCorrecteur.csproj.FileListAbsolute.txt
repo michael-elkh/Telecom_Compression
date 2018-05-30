@@ -1,0 +1,7 @@
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\bin\Debug\CodeCorrecteur.exe.config
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\bin\Debug\CodeCorrecteur.exe
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\bin\Debug\CodeCorrecteur.pdb
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\obj\Debug\CodeCorrecteur.csprojResolveAssemblyReference.cache
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\obj\Debug\CodeCorrecteur.csproj.CoreCompileInputs.cache
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\obj\Debug\CodeCorrecteur.exe
+C:\Users\micha\Desktop\CodeCorrecteur\CodeCorrecteur\obj\Debug\CodeCorrecteur.pdb
